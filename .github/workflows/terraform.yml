@@ -18,6 +18,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Debug repo structure
+        run: |
+          pwd
+          ls -la
+          ls -la infrastructure
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
