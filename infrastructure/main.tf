@@ -10,7 +10,7 @@ terraform {
 }
 
 provider "aws" {
-  region = "eu-north-1"
+  region = "us-east-1"
 }
 
 # Create a VPC with public & private subnets, NAT gateways, etc.
