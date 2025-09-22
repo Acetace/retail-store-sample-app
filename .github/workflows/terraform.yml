@@ -30,21 +30,25 @@ jobs:
           terraform_version: latest
 
       - name: Terraform Format
-        run: terraform fmt -check
-        working-directory: infrastructure
+        run: |
+          cd infrastructure
+          terraform fmt -check
 
       - name: Terraform Init
-        run: terraform init
-        working-directory: infrastructure
+        run: |
+          cd infrastructure
+          terraform init
 
       - name: Terraform Validate
-        run: terraform validate -no-color
-        working-directory: infrastructure
+        run: |
+          cd infrastructure
+          terraform validate -no-color
 
       - name: Terraform Plan
         if: github.event_name == 'pull_request'
-        run: terraform plan -no-color -input=false
-        working-directory: infrastructure
+        run: |
+          cd infrastructure
+          terraform plan -no-color -input=false
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -52,8 +56,9 @@ jobs:
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve -input=false
-        working-directory: infrastructure
+        run: |
+          cd infrastructure
+          terraform apply -auto-approve -input=false
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
